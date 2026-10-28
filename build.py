@@ -36,12 +36,27 @@ def page(code):
 </main><footer><div class="fm">{EM[code]}: <a href="mailto:534046@lotte.net">534046@lotte.net</a></div>{x["n"]}<br>Map data © OpenStreetMap contributors</footer></div></body></html>'''
 FONTS='<link rel="preconnect" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700&family=Noto+Sans+TC:wght@400;700&family=Noto+Sans+Thai:wght@400;700&display=swap">'
 SUBN={"en":"Pick-up Guide","ko":"픽업 안내","ja":"ピックアップ案内","zh-CN":"取车指南","zh-TW":"取車指南","th":"คู่มือรับรถ","vi":"Hướng dẫn nhận xe","ms":"Panduan Ambil Kereta"}
+RL=[("ko","한국어","Korean"),("en","English","영어"),("zh-TW","中文 繁體","Chinese (Trad.)"),("zh-CN","中文 简体","Chinese (Simp.)"),("ja","日本語","Japanese"),("th","ภาษาไทย","Thai"),("ms","Bahasa Melayu","Malay"),("vi","Tiếng Việt","Vietnamese")]
+RCSS=""":root{--ink:#191b1f;--sub:#5b616b;--bg:#f4f5f7}body,.shell{background:var(--bg);box-shadow:none;color:var(--ink)}
+header{padding:28px 24px 24px}
+main.center{justify-content:center;gap:clamp(6px,1.6dvh,16px);padding:clamp(12px,2.5dvh,24px) 24px}
+.back{align-self:flex-start;display:inline-flex;align-items:center;justify-content:center;height:40px;padding:0 16px;border-radius:20px;color:#444;background:#fff;box-shadow:0 2px 0 #dcdde2,0 4px 8px rgba(0,0,0,.06);text-decoration:none}
+.back:active{transform:translateY(2px);box-shadow:0 0 0 #dcdde2}
+.sel{margin:0 0 1.2dvh}.sel b,.sel span{font-size:clamp(14px,2.4dvh,19px)}.sel b{font-weight:800}.sel span{font-weight:600;color:var(--sub)}
+.lgrid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(8px,1.4dvh,12px);width:100%}
+.lgrid .btn{justify-content:flex-start;text-align:left;width:auto;min-width:0;margin:0;min-height:0;height:clamp(42px,8.2dvh,72px);padding:0 10px 0 14px;font-size:clamp(16px,2.7dvh,21px);white-space:nowrap;color:#1d1d1f;border-radius:18px;background:linear-gradient(160deg,#fff,#f6eeee);box-shadow:0 5px 0 #e9d6d4,0 9px 16px rgba(180,30,30,.16),inset 0 2px 0 #fff}
+.lgrid .btn small{font-size:clamp(11px,1.6dvh,13px);color:#c8102e;opacity:.85}
+.lgrid .btn:active{transform:translateY(3px);box-shadow:0 2px 0 #e9d6d4,0 4px 8px rgba(180,30,30,.16)}
+@media (max-width:380px){.lgrid .btn{font-size:15px;padding:0 8px 0 12px}}
+footer{margin-top:auto}"""
+ARR='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M15 18l-6-6 6-6"/></svg>'
 def root():
-  btns="".join(f'<a class="btn" href="{c}/"><span>{n}<small>{T[c]["t"]}</small></span></a>' for c,n in L)
-  return f'''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,viewport-fit=cover,initial-scale=1"><meta name="theme-color" content="#da291c"><title>LOTTE RENT-A-CAR Gimhae Airport Pick-up Guide</title>
-<script>var q=new URLSearchParams(location.search).get("lang");var ok={[c for c,_ in L]};if(q&&ok.indexOf(q)>=0)location.replace(q+"/");</script>{FONTS}<link rel="stylesheet" href="style.css?v=3"></head><body><div class="shell">
+  btns="".join(f'<a class="btn" href="{c}/"><span>{n}<small>{e}</small></span></a>' for c,n,e in RL)
+  return f'''<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,viewport-fit=cover,initial-scale=1"><meta name="theme-color" content="#da291c"><title>LOTTE RENT-A-CAR Gimhae Airport Pick-up Guide</title><link rel="icon" href="icon-192.png"><link rel="apple-touch-icon" href="apple-touch-icon.png">
+<script>var q=new URLSearchParams(location.search).get("lang");var ok={[c for c,_ in L]};if(q&&ok.indexOf(q)>=0)location.replace(q+"/");</script>{FONTS}<link rel="stylesheet" href="style.css?v=4"><style>{RCSS}</style></head><body><div class="shell">
 <header><img src="logo.png" alt="LOTTE rent-a-car GIMHAE AIRPORT"></header><main class="center">
-<div class="sel"><b>언어를 선택해 주세요</b><span>Please select your language</span><span>请选择语言</span><span>言語を選択してください</span></div><div class="grid">{btns}</div></main>
+<a class="back" href="https://handj1998-del.github.io/gimhae-app/" aria-label="Back">{ARR}</a>
+<div class="sel"><b>언어를 선택해 주세요</b><span>Please select your language</span><span>请选择语言</span><span>言語を選択してください</span></div><div class="lgrid">{btns}</div></main>
 <footer><div class="fm">Gimhae Airport office email: <a href="mailto:534046@lotte.net">534046@lotte.net</a></div></footer></div></body></html>'''
 for c,_ in L:
   os.makedirs(c,exist_ok=True); open(f"{c}/index.html","w").write(page(c))
