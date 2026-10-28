@@ -24,14 +24,25 @@ def page(code):
 <section class="card"><h2><span class="num">3</span>{x["s3"]}</h2><p>{x["p3"]}</p></section>
 <section class="card fast"><h2>⚡ {x["f"]}</h2><p>{x["fp"]}</p></section>'''
   sel="".join(f'<a href="../{c}/"{" class=on" if c==code else ""}>{n}</a>' for c,n in L)
-  return f'''<!doctype html><html lang="{code}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{x["t"]} · LOTTE RENT-A-CAR</title><link rel="stylesheet" href="../style.css"></head><body>
-<nav class="lang">{sel}</nav>
-<header><div class="brand">LOTTE RENT-A-CAR</div><h1>{x["t"]}</h1><div class="sub">{x["sub"]}</div></header><main>
+  return f'''<!doctype html><html lang="{code}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,viewport-fit=cover,initial-scale=1"><meta name="theme-color" content="#da291c"><title>{x["t"]} · LOTTE RENT-A-CAR</title>{FONTS}<link rel="stylesheet" href="../style.css?v=3"></head><body><div class="shell">
+<header class="small"><a href="../"><img src="../logo.png" alt="LOTTE rent-a-car GIMHAE AIRPORT"></a></header>
+<nav class="lang">{sel}</nav><main>
+<h1 class="title">{x["t"]}</h1><div class="sub">{x["sub"]}</div>
 <div class="map"><img src="../map-{code}.png" alt="{x["alt"]}"></div>
 <section class="card"><h2><span class="num">1</span>{x["s1"]}</h2><p>{x["p1"]}</p></section>
 {body}
-<section class="card contact"><div>{x["c"]}</div><a href="{MAIL}">534046@lotte.net</a></section>
-<section class="card contact chat"><a href="https://lotte-rentcar-chat.onrender.com/chat?lang={code}" target="_blank" rel="noopener">💬 {CHAT[code][0]}</a><div class="hours">{CHAT[code][1]}</div></section>
-</main><footer><div class="fm">{EM[code]}: <a href="mailto:534046@lotte.net">534046@lotte.net</a></div>{x["n"]}<br>Map data © OpenStreetMap contributors</footer></body></html>'''
+<section class="card contact"><div class="ct">{x["c"]}</div><a class="btn" href="{MAIL}">✉️ 534046@lotte.net</a>
+<a class="btn sub2" href="https://lotte-rentcar-chat.onrender.com/chat?lang={code}" target="_blank" rel="noopener">💬 {CHAT[code][0]}</a><div class="hours">{CHAT[code][1]}</div></section>
+</main><footer><div class="fm">{EM[code]}: <a href="mailto:534046@lotte.net">534046@lotte.net</a></div>{x["n"]}<br>Map data © OpenStreetMap contributors</footer></div></body></html>'''
+FONTS='<link rel="preconnect" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700&family=Noto+Sans+TC:wght@400;700&family=Noto+Sans+Thai:wght@400;700&display=swap">'
+SUBN={"en":"Pick-up Guide","ko":"픽업 안내","ja":"ピックアップ案内","zh-CN":"取车指南","zh-TW":"取車指南","th":"คู่มือรับรถ","vi":"Hướng dẫn nhận xe","ms":"Panduan Ambil Kereta"}
+def root():
+  btns="".join(f'<a class="btn" href="{c}/"><span>{n}<small>{T[c]["t"]}</small></span></a>' for c,n in L)
+  return f'''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,viewport-fit=cover,initial-scale=1"><meta name="theme-color" content="#da291c"><title>LOTTE RENT-A-CAR Gimhae Airport Pick-up Guide</title>
+<script>var q=new URLSearchParams(location.search).get("lang");var ok={[c for c,_ in L]};if(q&&ok.indexOf(q)>=0)location.replace(q+"/");</script>{FONTS}<link rel="stylesheet" href="style.css?v=3"></head><body><div class="shell">
+<header><img src="logo.png" alt="LOTTE rent-a-car GIMHAE AIRPORT"></header><main class="center">
+<div class="sel"><b>언어를 선택해 주세요</b><span>Please select your language</span><span>请选择语言</span><span>言語を選択してください</span></div><div class="grid">{btns}</div></main>
+<footer><div class="fm">Gimhae Airport office email: <a href="mailto:534046@lotte.net">534046@lotte.net</a></div></footer></div></body></html>'''
 for c,_ in L:
   os.makedirs(c,exist_ok=True); open(f"{c}/index.html","w").write(page(c))
+open("index.html","w").write(root())
