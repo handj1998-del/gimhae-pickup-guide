@@ -31,7 +31,7 @@ def page(code):
 <section class="card"><h2><span class="num">1</span>{x["s1"]}</h2><p>{x["p1"]}</p></section>
 {body}
 <section class="card contact"><div>{x["c"]}</div><a href="{MAIL}">534046@lotte.net</a></section>
-<section class="card contact chat"><a href="https://lotte-rentcar-chat.onrender.com/chat" target="_blank" rel="noopener">💬 {CHAT[code][0]}</a><div class="hours">{CHAT[code][1]}</div></section>
+<section class="card contact chat"><a href="https://lotte-rentcar-chat.onrender.com/chat?lang={code}" target="_blank" rel="noopener">💬 {CHAT[code][0]}</a><div class="hours">{CHAT[code][1]}</div></section>
 </main><footer><div class="fm">{EM[code]}: <a href="mailto:534046@lotte.net">534046@lotte.net</a></div>{x["n"]}<br>Map data © OpenStreetMap contributors</footer></body></html>'''
 for c,_ in L:
   os.makedirs(c,exist_ok=True); open(f"{c}/index.html","w").write(page(c))
