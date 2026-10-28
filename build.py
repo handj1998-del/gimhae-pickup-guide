@@ -12,6 +12,7 @@ T={
 "ms":dict(t="Panduan Ambil Kereta Lapangan Terbang Gimhae",sub="Pejabat Lapangan Terbang Gimhae · Maklumat sebelum sewa",s1="Lokasi Ambil Kereta",p1="<b>Terminal Domestik, Aras 1 (Balai Ketibaan)</b><br>Kaunter kami terletak di antara <b>Pintu 2 dan Pintu 3</b>.<br>Kira-kira <b>5 minit berjalan kaki</b> dari Terminal Antarabangsa.",s2="Dokumen Dibawa (Asal sahaja)",pp="<b>Pasport</b> – untuk pengenalan diri",idp="<b>Permit Memandu Antarabangsa (IDP) yang sah</b> – sila semak tarikh luput dan kategori kenderaan:",b="Kategori B: kenderaan sehingga 8 tempat duduk penumpang",d="Kategori D: kenderaan lebih daripada 8 tempat duduk penumpang",s3="Sebelum Tiba",p3="Sila maklumkan <b>nombor penerbangan ketibaan</b> anda (cth. KE1234) dengan membalas e-mel kami.",f="PERKHIDMATAN AMBIL PANTAS",fp="Hantar salinan imbasan <b>Pasport &amp; Permit Memandu Antarabangsa</b> lebih awal untuk sewaan yang cepat dan mudah!",c="Pertanyaan: Pejabat Lapangan Terbang Gimhae",n="Peta adalah anggaran sahaja.",alt="Laluan berjalan kaki dari Terminal Antarabangsa ke kaunter"),
 }
 CSS=open("style.css").read() if os.path.exists("style.css") else ""
+EM={'en': 'Gimhae Airport office email', 'ko': '김해공항영업소 이메일', 'ja': '金海空港営業所 メール', 'zh-CN': '金海机场营业所邮箱', 'zh-TW': '金海機場營業所電子郵件', 'th': 'อีเมลสาขาท่าอากาศยานกิมแฮ', 'vi': 'Email Văn phòng Sân bay Gimhae', 'ms': 'E-mel Pejabat Lapangan Terbang Gimhae'}
 MAIL="mailto:534046@lotte.net?subject=LOTTE%20RENT-A-CAR%20Reservation%20Inquiry"
 def page(code):
   x=T[code]
@@ -29,6 +30,6 @@ def page(code):
 <section class="card"><h2><span class="num">1</span>{x["s1"]}</h2><p>{x["p1"]}</p></section>
 {body}
 <section class="card contact"><div>{x["c"]}</div><a href="{MAIL}">534046@lotte.net</a></section>
-</main><footer>{x["n"]}<br>Map data © OpenStreetMap contributors</footer></body></html>'''
+</main><footer><div class="fm">{EM[code]}: <a href="mailto:534046@lotte.net">534046@lotte.net</a></div>{x["n"]}<br>Map data © OpenStreetMap contributors</footer></body></html>'''
 for c,_ in L:
   os.makedirs(c,exist_ok=True); open(f"{c}/index.html","w").write(page(c))
