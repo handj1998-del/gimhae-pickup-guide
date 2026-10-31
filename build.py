@@ -24,7 +24,7 @@ def page(code):
 <section class="card"><h2><span class="num">3</span>{x["s3"]}</h2><p>{x["p3"]}</p></section>
 <section class="card fast"><h2>⚡ {x["f"]}</h2><p>{x["fp"]}</p></section>'''
   sel="".join(f'<a href="../{c}/"{" class=on" if c==code else ""}>{n}</a>' for c,n in L)
-  return f'''<!doctype html><html lang="{code}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,viewport-fit=cover,initial-scale=1"><meta name="theme-color" content="#da291c"><title>{x["t"]} · LOTTE RENT-A-CAR</title>{FONTS}<link rel="stylesheet" href="../style.css?v=3"></head><body><div class="shell">
+  return f'''<!doctype html><html lang="{code}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,viewport-fit=cover,initial-scale=1"><meta name="theme-color" content="#da291c"><title>{x["t"]} · LOTTE RENT-A-CAR</title>{FONTS}<link rel="icon" href="../icon-192.png"><link rel="apple-touch-icon" href="../apple-touch-icon.png"><link rel="stylesheet" href="../style.css?v=5"></head><body><div class="shell">
 <header class="small"><a href="../"><img src="../logo.png" alt="LOTTE rent-a-car GIMHAE AIRPORT"></a></header>
 <nav class="lang">{sel}</nav><main>
 <h1 class="title">{x["t"]}</h1><div class="sub">{x["sub"]}</div>
@@ -53,7 +53,7 @@ ARR='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="current
 def root():
   btns="".join(f'<a class="btn" href="{c}/"><span>{n}<small>{e}</small></span></a>' for c,n,e in RL)
   return f'''<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,viewport-fit=cover,initial-scale=1"><meta name="theme-color" content="#da291c"><title>LOTTE RENT-A-CAR Gimhae Airport Pick-up Guide</title><link rel="icon" href="icon-192.png"><link rel="apple-touch-icon" href="apple-touch-icon.png">
-<script>var q=new URLSearchParams(location.search).get("lang");var ok={[c for c,_ in L]};if(q&&ok.indexOf(q)>=0)location.replace(q+"/");</script>{FONTS}<link rel="stylesheet" href="style.css?v=4"><style>{RCSS}</style></head><body><div class="shell">
+<script>var q=(new URLSearchParams(location.search).get("lang")||"").trim().toLowerCase().replace("_","-");var ok={[c for c,_ in L]};var m={{"zh":"zh-CN","zh-hans":"zh-CN","zh-sg":"zh-CN","zh-hant":"zh-TW","zh-hk":"zh-TW","zh-mo":"zh-TW"}};var t=m[q]||ok.filter(function(c){{return c.toLowerCase()==q}})[0]||ok.filter(function(c){{return c.toLowerCase()==q.split("-")[0]}})[0];if(t)location.replace(t+"/");</script>{FONTS}<link rel="stylesheet" href="style.css?v=5"><style>{RCSS}</style></head><body><div class="shell">
 <header><img src="logo.png" alt="LOTTE rent-a-car GIMHAE AIRPORT"></header><main class="center">
 <a class="back" href="https://handj1998-del.github.io/gimhae-app/" aria-label="Back">{ARR}</a>
 <div class="sel"><b>언어를 선택해 주세요</b><span>Please select your language</span><span>请选择语言</span><span>言語を選択してください</span></div><div class="lgrid">{btns}</div></main>
